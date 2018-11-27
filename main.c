@@ -12,6 +12,62 @@ typedef struct {
 
 car *head = NULL;
 
+void listCars();
+void sortConsumption();
+void sortYear();
+void addCarFormUser ();
+void write();
+void read();
+void higherConsumption();
+
+int main() {
+    read();
+
+    int opcao = -1;
+
+    while (opcao != 0){
+        printf ("Escolha uma opção\n");
+        printf ("1 - Inserir carro\n");
+        printf ("2 - Listar carros\n");
+        printf ("3 - Carro com o maior consumo\n");
+        printf ("4 - Ordernar Carros por consumo\n");
+        printf ("5 - Ordernar Carros por ano\n");
+        printf ("0 - Sair da aplicação\n");
+        scanf("%d", &opcao);
+        switch(opcao){
+            case 1:
+                // inserir carro
+                addCarFormUser();
+                break;
+            case 2:
+                listCars();
+                break;
+            case 3:
+                // imprimir carro com maior
+                higherConsumption();
+                break;
+
+            case 4:
+                // imprimir carro com maior
+                // fazer em casa
+                sortConsumption();
+                break;
+            case 5:
+                // imprimir carro com maior
+                // fazer em casa
+                sortYear();
+                break;
+            case 0:
+                write();
+                exit(0);
+                break;
+            default:
+                printf ("Opção inválida\n");
+        }
+    }
+    return 0;
+}
+
 void listCars(){
     car *ptr =  head;
     printf ("Brand\t\tModel \t Year \tComsumption\n");
@@ -24,6 +80,31 @@ void listCars(){
                ptr->consumption);
         ptr = ptr->next;
     }
+}
+
+void higherConsumption(){
+    car *ptr =  head;
+
+    car car_with_higher_consumption;
+    car_with_higher_consumption.consumption = 0;
+
+    while (ptr != NULL) {
+        if (ptr->consumption > car_with_higher_consumption.consumption){
+            strcpy(car_with_higher_consumption.brand , ptr->brand);
+            strcpy(car_with_higher_consumption.model , ptr->model);
+            car_with_higher_consumption.year = ptr->year;
+            car_with_higher_consumption.consumption = ptr->consumption;
+        }
+
+        ptr = ptr->next;
+    }
+
+    printf("O carro com o maior cosnumo é:\n");
+    printf("%s \t%s \t%d \t%f\n",
+           car_with_higher_consumption.brand,
+           car_with_higher_consumption.model,
+           car_with_higher_consumption.year,
+           car_with_higher_consumption.consumption);
 }
 
 
@@ -149,55 +230,4 @@ void read(){
 
     fclose(fptr);
 
-}
-
-
-
-int main() {
-    read();
-
-    int opcao = -1;
-
-
-    while (opcao != 0){
-        printf ("Escolha uma opção\n");
-        printf ("1 - Inserir carro\n");
-        printf ("2 - Listar carros\n");
-        printf ("3 - Carro com o maior consumo\n");
-        printf ("4 - Ordernar Carros por consumo\n");
-        printf ("5 - Ordernar Carros por ano\n");
-        printf ("0 - Sair da aplicação\n");
-        scanf("%d", &opcao);
-        switch(opcao){
-            case 1:
-                // inserir carro
-                addCarFormUser();
-                break;
-            case 2:
-                listCars();
-                break;
-            case 3:
-                // imprimir carro com maior
-                // fazer em casa
-                break;
-
-            case 4:
-                // imprimir carro com maior
-                // fazer em casa
-                sortConsumption();
-                break;
-            case 5:
-                // imprimir carro com maior
-                // fazer em casa
-                sortYear();
-                break;
-            case 0:
-                write();
-                exit(0);
-                break;
-            default:
-                printf ("Opção inválida\n");
-        }
-    }
-    return 0;
 }
