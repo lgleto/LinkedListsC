@@ -12,6 +12,88 @@ typedef struct {
 
 car *head = NULL;
 
+void listCars(){
+    car *ptr =  head;
+    printf ("Brand\t\tModel \t Year \tComsumption\n");
+    while (ptr != NULL) {
+
+        printf("%s \t%s \t%d \t%f\n",
+               ptr->brand,
+               ptr->model,
+               ptr->year,
+               ptr->consumption);
+        ptr = ptr->next;
+    }
+}
+
+
+void sortConsumption(){
+
+    int nao_houve_mais_trocas = 1;
+
+
+    while (nao_houve_mais_trocas == 1) {
+
+        nao_houve_mais_trocas = 0;
+
+        car *ptr = head;
+        car *prev = NULL;
+
+        while (ptr != NULL) {
+            car *nextCar = ptr->next;
+            if (nextCar == NULL) break;
+            if (ptr->consumption > nextCar->consumption) {
+                nao_houve_mais_trocas = 1;
+                ptr->next = nextCar->next;
+                if (prev != NULL)
+                    prev->next = nextCar;
+                else
+                    head = nextCar;
+                nextCar->next = ptr;
+            }
+            prev = ptr;
+
+
+            ptr = ptr->next;
+        }
+    }
+    listCars();
+}
+
+void sortYear(){
+
+    int nao_houve_mais_trocas = 1;
+
+
+    while (nao_houve_mais_trocas == 1) {
+
+        nao_houve_mais_trocas = 0;
+
+        car *ptr = head;
+        car *prev = NULL;
+
+        while (ptr != NULL) {
+            car *nextCar = ptr->next;
+            if (nextCar == NULL) break;
+            if (ptr->year > nextCar->year) {
+                nao_houve_mais_trocas = 1;
+                ptr->next = nextCar->next;
+                if (prev != NULL)
+                    prev->next = nextCar;
+                else
+                    head = nextCar;
+                nextCar->next = ptr;
+            }
+            prev = ptr;
+
+
+            ptr = ptr->next;
+        }
+    }
+    listCars();
+}
+
+
 void addCarFormUser (){
     car *newcar =malloc(sizeof(car));
     printf("Introduza a marca do carro:\n");
@@ -69,19 +151,6 @@ void read(){
 
 }
 
-void listCars(){
-    car *ptr =  head;
-    printf ("Brand\t\tModel \t Year \tComsumption\n");
-    while (ptr != NULL) {
-
-        printf("%s \t%s \t%d \t%f\n",
-               ptr->brand,
-               ptr->model,
-               ptr->year,
-               ptr->consumption);
-        ptr = ptr->next;
-    }
-}
 
 
 int main() {
@@ -93,8 +162,10 @@ int main() {
     while (opcao != 0){
         printf ("Escolha uma opção\n");
         printf ("1 - Inserir carro\n");
-        printf ("2 - Lista carros\n");
+        printf ("2 - Listar carros\n");
         printf ("3 - Carro com o maior consumo\n");
+        printf ("4 - Ordernar Carros por consumo\n");
+        printf ("5 - Ordernar Carros por ano\n");
         printf ("0 - Sair da aplicação\n");
         scanf("%d", &opcao);
         switch(opcao){
@@ -108,6 +179,17 @@ int main() {
             case 3:
                 // imprimir carro com maior
                 // fazer em casa
+                break;
+
+            case 4:
+                // imprimir carro com maior
+                // fazer em casa
+                sortConsumption();
+                break;
+            case 5:
+                // imprimir carro com maior
+                // fazer em casa
+                sortYear();
                 break;
             case 0:
                 write();
